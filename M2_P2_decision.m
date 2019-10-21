@@ -2,3 +2,6 @@
 
 clear                                                                       %clear all varables
 clc                                                                         %clear the command window
+
+load WaterUseData.mat                                                       %load water useage file
+
