@@ -36,14 +36,12 @@ BestFitDerLine = polyval(BestFitDer, Year);                                 %Put
 DerivitiveMatrix(:,1) = BestFitDerLine;                                     %Make a matrix and put the bestfit der values in column one
 DerivitiveMatrix(:,2) = Year;                                               %Put year in column 2
 
-ZeroValue = min(abs(DerivitiveMatrix(:,1)));
-[MatrixZero, MatrixColumn] = find(DerivitiveMatrix == ZeroValue);
+ZeroValue = min(abs(DerivitiveMatrix(:,1)));                                %Find the closest value to 0
+MatrixSize = [length(DerivitiveMatrix),2];
+MatrixZero = find(abs(DerivitiveMatrix(:,1)-ZeroValue) < 0.1);
 YearToQuit = DerivitiveMatrix(MatrixZero,2);
 
-%{
-for i = 1:1:length(Year)
-    
-%}  
+
 if GraphforUser == 1
     hold on;
     Plot1 = plot(Year, ActiveMetaData, 'ro');
