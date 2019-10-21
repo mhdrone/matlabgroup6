@@ -6,7 +6,7 @@
 % Edward --- outputing data to command window
 % Hamilton - Basic program layout, final formating
 
-clear                                                                       %clear all varables
+clear                                                                       %clear all variables
 clc                                                                         %clear the command window
 close all;
 
@@ -56,4 +56,4 @@ if SaveFileUser == 1
 end
 
 % output data into command window (year to stop investing is stored in
-% varable YearToQuit
+% variable YearToQuit
