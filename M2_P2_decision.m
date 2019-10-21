@@ -44,10 +44,15 @@ if GraphforUser == 1                                                        %run
     Plot1 = plot(Year, ActiveMetaData, 'ro');                               %plot the metadata
     Plot2 = plot(Year, BestFitLine, 'b');                                   %plot the best fit line
     Plot3 = plot(Year, BestFitDerLine);                                     %plot the derivitive
+    %graph lables to be added
+    %graph legend to be added
 end
+
+%decision tree to be added
 
 if SaveFileUser == 1
     disp("sorry, saving to file hasn't been added yet");
+    %data output to file to be added
 end
 
 % output data into command window (year to stop investing is stored in
