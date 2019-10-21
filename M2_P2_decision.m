@@ -39,7 +39,6 @@ ZeroValue = min(abs(DerivitiveMatrix(:,1)));                                %Fin
 MatrixZero = find(abs(DerivitiveMatrix(:,1)-ZeroValue) < 0.1);              %find the index of ZeroValue in the matrix
 YearToQuit = DerivitiveMatrix(MatrixZero,2);                                %get the corresponding year value
 
-
 if GraphforUser == 1                                                        %run if the user wants to display a graph
     hold on;                                                                %keep all open windows and write plots to the current window
     Plot1 = plot(Year, ActiveMetaData, 'ro');                               %plot the metadata
@@ -50,3 +49,6 @@ end
 if SaveFileUser == 1
     disp("sorry, saving to file hasn't been added yet");
 end
+
+% output data into command window (year to stop investing is stored in
+% varable YearToQuit
