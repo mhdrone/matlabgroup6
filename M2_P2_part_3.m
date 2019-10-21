@@ -10,7 +10,6 @@ fprintf("[1] ThermoElectric\n[2] Population in Millions\n[3] Public Supply in bi
 Metadata = input('input selection: ');
 
 if Metadata == 1
-    edward
     SelMetaData = ThermoelectricpowerinBgald;
     LegendString = 'Thermoelectric power supply in Billions';
     LineType = 2;
