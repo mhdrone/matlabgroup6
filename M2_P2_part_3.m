@@ -62,3 +62,4 @@ BestFitLineLE = plot(Year, BestFitLine, 'b');
 BestFitLineL = 'Line of best fit';
 
 legend([MetaDataGraph; BestFitLineLE], LegendString, BestFitLineL);
+jyh
