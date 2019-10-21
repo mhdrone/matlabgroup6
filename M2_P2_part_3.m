@@ -1,7 +1,7 @@
 %plot the selected meta data
 
 clc
-clear
+clear;
 
 close all;
 load WaterUseData.mat;
