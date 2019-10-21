@@ -32,7 +32,6 @@ BestFitLine = polyval(BestFit, Year);                                       %Cle
 BestFitDer = polyder(BestFit);                                              %Get the derivitive of the best fit line
 BestFitDerLine = polyval(BestFitDer, Year);                                 %Put derivitive into usable format
 
-
 DerivitiveMatrix(:,1) = BestFitDerLine;                                     %Make a matrix and put the bestfit der values in column one
 DerivitiveMatrix(:,2) = Year;                                               %Put year in column 2
 
