@@ -46,6 +46,7 @@ if GraphforUser == 1                                                        %run
     Plot3 = plot(Year, BestFitDerLine);                                     %plot the derivitive
     %graph lables to be added
     %graph legend to be added
+    legend({'ActiveMetaData', 'BestFitLine', 'BestFitDerLine'}, 'Location', 'northwest'); 
 end
 
 %decision tree to be added
