@@ -7,3 +7,4 @@ Engr 1215 group 6 github repo for matlab
 - M2_P2_part_3.m - a graphing program to graph selected metadatas
 - README.md - this file you are currently reading
 - WaterUseData.mat - the resource file, has all the metadatas
+- Setupgithub.md - short guide on setting up github for desktop
