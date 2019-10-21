@@ -50,6 +50,15 @@ end
 
 %decision tree to be added
 
+currentYear = 0;
+while currentYear >= 2015 && currentYear <= 2020
+    currentYear = input('Please input the current year (2015-2020)');
+    
+end
+
+% Input current year [2015-2020]
+% Input min and max derivative values for each year
+% Output first year whose data is outside min/max rate of change
 if SaveFileUser == 1
     disp("sorry, saving to file hasn't been added yet");
     %data output to file to be added
