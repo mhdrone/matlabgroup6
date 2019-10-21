@@ -2,7 +2,7 @@
 % Mario ---- outputing data to file
 % Stephen -- decision tree
 % Brett ---- graph labels and format
-% Vedant --- 
+% Vedant --- graph legend
 % Edward --- outputing data to command window
 % Hamilton - Basic program layout, final formating
 
@@ -36,17 +36,16 @@ BestFitDerLine = polyval(BestFitDer, Year);                                 %Put
 DerivitiveMatrix(:,1) = BestFitDerLine;                                     %Make a matrix and put the bestfit der values in column one
 DerivitiveMatrix(:,2) = Year;                                               %Put year in column 2
 
-ZeroValue = min(abs(DerivitiveMatrix(:,1)));                                %Find the closest value to 0
-MatrixSize = [length(DerivitiveMatrix),2];
-MatrixZero = find(abs(DerivitiveMatrix(:,1)-ZeroValue) < 0.1);
-YearToQuit = DerivitiveMatrix(MatrixZero,2);
+ZeroValue = min(abs(DerivitiveMatrix(:,1)));                                %Find the closest value to 0                             
+MatrixZero = find(abs(DerivitiveMatrix(:,1)-ZeroValue) < 0.1);              %find the index of ZeroValue in the matrix
+YearToQuit = DerivitiveMatrix(MatrixZero,2);                                %get the corresponding year value
 
 
-if GraphforUser == 1
-    hold on;
-    Plot1 = plot(Year, ActiveMetaData, 'ro');
-    Plot2 = plot(Year, BestFitLine, 'b');
-    Plot3 = plot(Year, BestFitDerLine);
+if GraphforUser == 1                                                        %run if the user wants to display a graph
+    hold on;                                                                %keep all open windows and write plots to the current window
+    Plot1 = plot(Year, ActiveMetaData, 'ro');                               %plot the metadata
+    Plot2 = plot(Year, BestFitLine, 'b');                                   %plot the best fit line
+    Plot3 = plot(Year, BestFitDerLine);                                     %plot the derivitive
 end
 
 if SaveFileUser == 1
