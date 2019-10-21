@@ -51,13 +51,29 @@ end
 %decision tree to be added
 
 currentYear = 0;
-while currentYear >= 2015 && currentYear <= 2020
-    currentYear = input('Please input the current year')
+while currentYear < 2015 || currentYear > 2020
+    currentYear = input('Please input the current year (2015-2020): ');       % Input current year [2015-2020]
 end
 
-% Input current year [2015-2020]
-% Input min and max derivative values for each year
+rateThresholds = [];
+for i=1:4
+    yearToPromptFor = currentYear + i;
+    minRateForYear = input(sprintf("Please input the minimum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", yearToPromptFor));
+    maxRateForYear = input(sprintf("Please input the maximum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", yearToPromptFor));
+    rateThresholds(1, i) = minRateForYear;
+    rateThresholds(2, i) = maxRateForYear;
+end
+
+    disp(DerivitiveMatrix);
+
+
+disp(rateThresholds);
+for year=currentYear:currentYear+4
+end
+
+% Input min and max derivative values for new four years
 % Output first year whose data is outside min/max rate of change
+
 if SaveFileUser == 1
     disp("sorry, saving to file hasn't been added yet");
     %data output to file to be added
