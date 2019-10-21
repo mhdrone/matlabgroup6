@@ -55,5 +55,7 @@ if SaveFileUser == 1
     %data output to file to be added
 end
 
+disp('Year to stop investigate: ')
+disp(YearToQuit)
 % output data into command window (year to stop investing is stored in
-% varable YearToQuit
+% varable YearToQuit 
