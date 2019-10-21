@@ -19,3 +19,7 @@ ActiveMetaData = ThermoelectricpowerinBgald;                                %set
 % plan: to graph the data points and then generate a line of best fit, find
 % out where the derivative of the line becomes negative and report the 
 % value of x right before that point
+
+BestFit = polyfit(Year, SelMetaData, LineType);                             %Generate line of best fit
+BestFitLine = polyval(BestFit, Year);                                       %Clean up best fit line into a usable format
+
