@@ -1,9 +1,9 @@
 % Module 2 Part 2 Group 6 Decision Program
 % Mario ---- outputing data to file
-% Stephen -- 
-% Brett ---- 
+% Stephen -- decision tree
+% Brett ---- graph labels and format
 % Vedant --- 
-% Edward --- 
+% Edward --- outputing data to command window
 % Hamilton - Basic program layout, final formating
 
 clear                                                                       %clear all varables
@@ -30,9 +30,20 @@ SaveFileUser = input('Would you like to output data to file? [y/n]: ');     %ask
 BestFit = polyfit(Year, ActiveMetaData, 2);                                 %Generate line of best fit
 BestFitLine = polyval(BestFit, Year);                                       %Clean up best fit line into a usable format
 BestFitDer = polyder(BestFit);                                              %Get the derivitive of the best fit line
-BestFitDerLine = polyval(BestFitDer, Year);
-%BestFitDerLine = (BestFitDer(1)*Year)+BestFitLine(2);                       %Put the derivitive into a usable format
+BestFitDerLine = polyval(BestFitDer, Year);                                 %Put derivitive into usable format
 
+
+DerivitiveMatrix(:,1) = BestFitDerLine;                                     %Make a matrix and put the bestfit der values in column one
+DerivitiveMatrix(:,2) = Year;                                               %Put year in column 2
+
+ZeroValue = min(abs(DerivitiveMatrix(:,1)));
+[MatrixZero, MatrixColumn] = find(DerivitiveMatrix == ZeroValue);
+YearToQuit = DerivitiveMatrix(MatrixZero,2);
+
+%{
+for i = 1:1:length(Year)
+    
+%}  
 if GraphforUser == 1
     hold on;
     Plot1 = plot(Year, ActiveMetaData, 'ro');
