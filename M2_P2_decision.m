@@ -45,10 +45,8 @@ if GraphforUser == 1                                                        %run
     Plot2 = plot(Year, BestFitLine, 'b');                                   %plot the best fit line
     Plot3 = plot(Year, BestFitDerLine);                                     %plot the derivitive
     xlabel('Years');%graph lables to be added
-    ylabel('Thermoelectric Power in Billions of gallons');%graph legend to be added
+    ylabel('Thermoelectric Power in Billions of gallons');
     title('Thermoelectric Power Water Usage (1950-2015)');
-    %graph lables to be added
-    %graph legend to be added
     legend({'ActiveMetaData', 'BestFitLine', 'BestFitDerLine'}, 'Location', 'northwest'); 
 end
 
@@ -62,4 +60,3 @@ end
 disp('Year to stop investigate: ');
 disp(YearToQuit)
 % output data into command window (year to stop investing is stored in
-% variable YearToQuit
