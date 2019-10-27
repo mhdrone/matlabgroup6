@@ -8,7 +8,7 @@
 
 clear                                                                       % clear all variables
 clc                                                                         % clear the command window
-close all;
+close all;                                                                  % close all open graphs
 
 load WaterUseData.mat                                                       % load water useage file
 
@@ -52,7 +52,7 @@ end
 
 % decision tree to be added
 
-if SaveFileUser == 1
+if SaveFileUser == 1                                                        % run if the user wanted to save to a file
     disp("sorry, saving to file hasn't been added yet");
     % data output to file to be added
 end
