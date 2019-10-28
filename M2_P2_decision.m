@@ -35,9 +35,9 @@ BestFitDerLine = polyval(BestFitDer, Year);                                 %Put
 DerivitiveMatrix(:,1) = BestFitDerLine;                                     %Make a matrix and put the bestfit der values in column one
 DerivitiveMatrix(:,2) = Year;                                               %Put year in column 2
 
-ZeroValue = min(abs(DerivitiveMatrix(:,1)));                                %Find the closest value to 0                             
-MatrixZero = find(abs(DerivitiveMatrix(:,1)-ZeroValue) < 0.1);              %find the index of ZeroValue in the matrix
-YearToQuit = DerivitiveMatrix(MatrixZero,2);                                %get the corresponding year value
+% ZeroValue = min(abs(DerivitiveMatrix(:,1)));                              %Find the closest value to 0                             
+% MatrixZero = find(abs(DerivitiveMatrix(:,1)-ZeroValue) < 0.1);            %find the index of ZeroValue in the matrix
+%YearToQuit = DerivitiveMatrix(MatrixZero, 2);                              %get the corresponding year value
 
 if GraphforUser == 1                                                        %run if the user wants to display a graph
     hold on;                                                                %keep all open windows and write plots to the current window
@@ -52,38 +52,58 @@ if GraphforUser == 1                                                        %run
     legend({'ActiveMetaData', 'BestFitLine', 'BestFitDerLine'}, 'Location', 'northwest'); 
 end
 
-%decision tree to be added
-
 currentYear = 0;
-while currentYear < 2015 || currentYear > 2020
-    currentYear = input('Please input the current year (2015-2020): ');       % Input current year [2015-2020]
+while currentYear < 2015 || currentYear > 2020  
+    currentYear = input('Please input the current year (2015-2020): ');     % Input current year [2015-2020]
 end
 
+% Input min and max derivative values for next four years
 rateThresholds = [];
 for i=1:4
     yearToPromptFor = currentYear + i;
     minRateForYear = input(sprintf("Please input the minimum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", yearToPromptFor));
     maxRateForYear = input(sprintf("Please input the maximum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", yearToPromptFor));
+    % Min and max rates are stored in a 2x4 matrix - each row corresponds
+    % to a year [1,4] and each column (top/bottom) corresponds to a min/max
+    % rate
     rateThresholds(1, i) = minRateForYear;
     rateThresholds(2, i) = maxRateForYear;
 end
 
-    disp(DerivitiveMatrix);
+% disp(DerivitiveMatrix(:,1));
+% disp(DerivitiveMatrix(:,2));
+% disp(rateThresholds);
+% disp(currentYear);
 
-
-disp(rateThresholds);
-for year=currentYear:currentYear+4
+YearToQuit = -1;
+% Output first year whose data is outside min/max rate of change
+for year=currentYear:currentYear+4                     
+    currentRate = DerivitiveMatrix((year - 1950) / 5, 1);                   % Data is in 5 year intervals, so divide by 5 to find index
+    currentMinRate = rateThresholds(1, year - currentYear + 1);             % Data is NOT in 5 year intervals
+    currentMaxRate = rateThresholds(2, year - currentYear + 1);
+    
+    if currentRate < currentMinRate
+        YearToQuit = year;
+        fprintf('Rate of change for %.0f is below threshold %.0f.\n', currentYear, currentMinRate);
+        break;
+    elseif currentRate > currentMaxRate
+        YearToQuit = year;
+        fprintf('Rate of change for %.0f is below threshold %.0f.\n', currentYear, currentMaxRate);
+        break;
+    end
 end
 
-% Input min and max derivative values for new four years
-% Output first year whose data is outside min/max rate of change
+if YearToQuit ~= 1
+    fprintf('We recommend that investments in hydroelectric power be discontinued in %.0f.\n', YearToQuit);
+end
+
 
 if SaveFileUser == 1
     disp("sorry, saving to file hasn't been added yet");
     %data output to file to be added
 end
 
-disp('Year to stop investigate: ')
-disp(YearToQuit)
+% disp('Year to stop investing: ')
+% disp(YearToQuit)
 % output data into command window (year to stop investing is stored in
 % variable YearToQuit
