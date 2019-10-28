@@ -35,9 +35,9 @@ BestFitDerLine = polyval(BestFitDer, Year);                                 % pu
 DerivitiveMatrix(:,1) = BestFitDerLine;                                     % make a matrix and put the bestfit der values in column one
 DerivitiveMatrix(:,2) = Year;                                               % put year in column 2
 
-ZeroValue = min(abs(DerivitiveMatrix(:,1)));                                % find the closest value to 0                             
-MatrixZero = find(abs(DerivitiveMatrix(:,1)-ZeroValue) < 0.1);              % find the index of ZeroValue in the matrix
-YearToQuit = DerivitiveMatrix(MatrixZero,2);                                % get the corresponding year value
+% ZeroValue = min(abs(DerivitiveMatrix(:,1)));                              %Find the closest value to 0                             
+% MatrixZero = find(abs(DerivitiveMatrix(:,1)-ZeroValue) < 0.1);            %find the index of ZeroValue in the matrix
+%YearToQuit = DerivitiveMatrix(MatrixZero, 2);                              %get the corresponding year value
 
 if GraphforUser == 1                                                        % run if the user wants to display a graph
     hold on;                                                                % keep all open windows and write plots to the current window
@@ -50,13 +50,57 @@ if GraphforUser == 1                                                        % ru
     legend({'ActiveMetaData', 'BestFitLine', 'BestFitDerLine'}, 'Location', 'northwest');       % add a legend for each line
 end
 
-% decision tree to be added
+CurrentYear = 0;
+while CurrentYear < 2015 || CurrentYear > 2020  
+    CurrentYear = input('Please input the current year (2015-2020): ');     % Input current year [2015-2020]
+end
 
-if SaveFileUser == 1                                                        % run if the user wanted to save to a file
+% Input min and max derivative values for next four years
+RateThresholds = [];
+for i=1:4
+    YearToPromptFor = CurrentYear + i;
+    MinRateForYear = input(sprintf("Please input the minimum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", YearToPromptFor));
+    MaxRateForYear = input(sprintf("Please input the maximum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", YearToPromptFor));
+    % Min and max rates are stored in a 2x4 matrix - each row corresponds
+    % to a year [1,4] and each column (top/bottom) corresponds to a min/max
+    % rate
+    RateThresholds(1, i) = MinRateForYear;
+    RateThresholds(2, i) = MaxRateForYear;
+end
+
+% disp(DerivitiveMatrix(:,1));
+% disp(DerivitiveMatrix(:,2));
+% disp(RateThresholds);
+% disp(CurrentYear);
+
+YearToQuit = -1;
+% Output first year whose data is outside min/max rate of change
+for year=CurrentYear:CurrentYear+4                     
+    CurrentRate = DerivitiveMatrix((year - 1950) / 5, 1);                   % Data is in 5 year intervals, so divide by 5 to find index
+    CurrentMinRate = RateThresholds(1, year - CurrentYear + 1);             % Data is NOT in 5 year intervals
+    CurrentMaxRate = RateThresholds(2, year - CurrentYear + 1);
+    
+    if CurrentRate < CurrentMinRate
+        YearToQuit = year;
+        fprintf('Rate of change for %.0f is below threshold %.0f.\n', CurrentYear, CurrentMinRate);
+        break;
+    elseif CurrentRate > CurrentMaxRate
+        YearToQuit = year;
+        fprintf('Rate of change for %.0f is below threshold %.0f.\n', CurrentYear, CurrentMaxRate);
+        break;
+    end
+end
+
+if YearToQuit ~= 1
+    fprintf('We recommend that investments in hydroelectric power be discontinued in %.0f.\n', YearToQuit);
+end
+
+
+if SaveFileUser == 1
     disp("sorry, saving to file hasn't been added yet");
     % data output to file to be added
 end
 
-disp('Year to stop investigate: ');
-disp(YearToQuit)
+% disp('Year to stop investing: ')
+% disp(YearToQuit)
 % output data into command window (year to stop investing is stored in
