@@ -50,43 +50,43 @@ if GraphforUser == 1                                                        % ru
     legend({'ActiveMetaData', 'BestFitLine', 'BestFitDerLine'}, 'Location', 'northwest');       % add a legend for each line
 end
 
-currentYear = 0;
-while currentYear < 2015 || currentYear > 2020  
-    currentYear = input('Please input the current year (2015-2020): ');     % Input current year [2015-2020]
+CurrentYear = 0;
+while CurrentYear < 2015 || CurrentYear > 2020  
+    CurrentYear = input('Please input the current year (2015-2020): ');     % Input current year [2015-2020]
 end
 
 % Input min and max derivative values for next four years
-rateThresholds = [];
+RateThresholds = [];
 for i=1:4
-    yearToPromptFor = currentYear + i;
-    minRateForYear = input(sprintf("Please input the minimum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", yearToPromptFor));
-    maxRateForYear = input(sprintf("Please input the maximum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", yearToPromptFor));
+    YearToPromptFor = CurrentYear + i;
+    MinRateForYear = input(sprintf("Please input the minimum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", YearToPromptFor));
+    MaxRateForYear = input(sprintf("Please input the maximum rate of change for thermoelectric power usage in change in billions of gallons per day for %.0f: ", YearToPromptFor));
     % Min and max rates are stored in a 2x4 matrix - each row corresponds
     % to a year [1,4] and each column (top/bottom) corresponds to a min/max
     % rate
-    rateThresholds(1, i) = minRateForYear;
-    rateThresholds(2, i) = maxRateForYear;
+    RateThresholds(1, i) = MinRateForYear;
+    RateThresholds(2, i) = MaxRateForYear;
 end
 
 % disp(DerivitiveMatrix(:,1));
 % disp(DerivitiveMatrix(:,2));
-% disp(rateThresholds);
-% disp(currentYear);
+% disp(RateThresholds);
+% disp(CurrentYear);
 
 YearToQuit = -1;
 % Output first year whose data is outside min/max rate of change
-for year=currentYear:currentYear+4                     
-    currentRate = DerivitiveMatrix((year - 1950) / 5, 1);                   % Data is in 5 year intervals, so divide by 5 to find index
-    currentMinRate = rateThresholds(1, year - currentYear + 1);             % Data is NOT in 5 year intervals
-    currentMaxRate = rateThresholds(2, year - currentYear + 1);
+for year=CurrentYear:CurrentYear+4                     
+    CurrentRate = DerivitiveMatrix((year - 1950) / 5, 1);                   % Data is in 5 year intervals, so divide by 5 to find index
+    CurrentMinRate = RateThresholds(1, year - CurrentYear + 1);             % Data is NOT in 5 year intervals
+    CurrentMaxRate = RateThresholds(2, year - CurrentYear + 1);
     
-    if currentRate < currentMinRate
+    if CurrentRate < CurrentMinRate
         YearToQuit = year;
-        fprintf('Rate of change for %.0f is below threshold %.0f.\n', currentYear, currentMinRate);
+        fprintf('Rate of change for %.0f is below threshold %.0f.\n', CurrentYear, CurrentMinRate);
         break;
-    elseif currentRate > currentMaxRate
+    elseif CurrentRate > CurrentMaxRate
         YearToQuit = year;
-        fprintf('Rate of change for %.0f is below threshold %.0f.\n', currentYear, currentMaxRate);
+        fprintf('Rate of change for %.0f is below threshold %.0f.\n', CurrentYear, CurrentMaxRate);
         break;
     end
 end
