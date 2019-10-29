@@ -76,7 +76,7 @@ end
 YearToQuit = -1;
 % Output first year whose data is outside min/max rate of change
 for year=CurrentYear:CurrentYear+4                     
-    CurrentRate = DerivitiveMatrix((year - 1950) / 5, 1);                   % Data is in 5 year intervals, so divide by 5 to find index
+    CurrentRate = polyval(BestFitDer, (year - 1950) / 5);      % Data is in 5 year intervals, so divide by 5 to find index
     CurrentMinRate = RateThresholds(1, year - CurrentYear + 1);             % Data is NOT in 5 year intervals
     CurrentMaxRate = RateThresholds(2, year - CurrentYear + 1);
     
